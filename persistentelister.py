@@ -15,9 +15,9 @@ class PersistenceObject:
         self.loop     = 1
     
     def getValues(self):
-        key  = winreg.OpenKey(self.key, self.subkey, reserved = 0, access = winreg.KEY_READ)
-        if not key: 
-
+        try:
+            key  = winreg.OpenKey(self.key, self.subkey, reserved = 0, access = winreg.KEY_READ)
+        except:
             return 0                 # 0 if Fail 
         
         

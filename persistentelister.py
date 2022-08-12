@@ -61,7 +61,7 @@ def getStartupFolders():
     "UserShellFolders": r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders",
     "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"} 
     HKLM_skeys = {
-    "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
+    "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders",
     "UserShellFolders": r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders"}
 
     def registrySearch(key, subkeys, valuename):

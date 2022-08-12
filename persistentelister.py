@@ -83,10 +83,10 @@ def getStartupFolders():
         return folders
 
     for subkey in HKCU_skeys:
-        folders +=  registrySearch(regkeys["HCKU"], subkey, "Startup")
+        folders +=  registrySearch(regkeys["HCKU"], HKCU_skeys[subkey], "Startup")
 
     for subkey2 in HKLM_skeys: 
-        folders += registrySearch(regkeys["HKLM"], subkey2, "Common Startup")
+        folders += registrySearch(regkeys["HKLM"], HKLM_skeys[subkey2], "Common Startup")
 
     ## Some folders will have % in the app, next step is using re to change this.
 

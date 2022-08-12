@@ -58,7 +58,7 @@ def getStartupFolders():
     folders = list() 
     regkeys = {"HKCU": winreg.HKEY_CURRENT_USER, "HKLM": winreg.HKEY_LOCAL_MACHINE } 
     HKCU_skeys = {
-    "UserShellFolders": r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders,
+    "UserShellFolders": r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders",
     "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"} 
     HKLM_skeys = {
     "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"

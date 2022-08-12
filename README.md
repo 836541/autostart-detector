@@ -3,7 +3,7 @@ List every software set to autostart on bootup/login via registry or special fol
 
 
 Autoruns is often used as a malware analysis tool for persistence mechanisms detection, so I will try to add cool functions related to that while I develop it, like 
-snapshots and real time monitoring.
+snapshots, real time monitoring and user's searchs.
 
 In progress: 10%/100%.
 

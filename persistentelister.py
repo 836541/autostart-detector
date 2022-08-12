@@ -1,3 +1,6 @@
+# /undead_warlock
+# GPL3.0-or-foward
+
 import winreg
 import os
 import re 
@@ -15,9 +18,9 @@ class PersistenceObject:
         self.loop     = 1
     
     def getValues(self):
-        try:
-            key  = winreg.OpenKey(self.key, self.subkey, reserved = 0, access = winreg.KEY_READ)
-        except:
+        key  = winreg.OpenKey(self.key, self.subkey, reserved = 0, access = winreg.KEY_READ)
+        if not key: 
+
             return 0                 # 0 if Fail 
         
         
@@ -48,11 +51,56 @@ def getdirFiles(dir, recursive):             # Startup Folders check
         for (dirpath, dirnames, filenames) in os.walk(dir):
             files += [os.path.join(dirpath, file) for file in filenames]
 
-    
+    return files  
+
+
+def getStartupFolders():
+    folders = list() 
+    regkeys = {"HKCU": winreg.HKEY_CURRENT_USER, "HKLM": winreg.HKEY_LOCAL_MACHINE } 
+    HKCU_skeys = {
+    "UserShellFolders": r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders,
+    "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"} 
+    HKLM_skeys = {
+    "ShellFolders"    : r"Software\Microsoft\Windows\CurrentVersion\Explorer\Shell Folders"
+    "UserShellFolders": r"Software\Microsoft\Windows\CurrentVersion\Explorer\User Shell Folders"}
+
+    def registrySearch(key, subkeys, valuename):
+        folders = list()
+        for subkey in subkeys:
+            try:
+                openkey = winreg.OpenKey(key, subkey)
+                for index in range(100):
+                    keyvalue = winreg.EnumValue(openkey, index)
+                    if keyvalue[0] == valuename:
+                        folders += [keyvalue[1]]
+                        break 
+            except: 
+                try:
+                    continue
+                except:
+                    break  
+
+        return folders
+
+    for subkey in HKCU_skeys:
+        folders +=  registrySearch(regkeys["HCKU"], subkey, "Startup")
+
+    for subkey2 in HKLM_skeys: 
+        folders += registrySearch(regkeys["HKLM"], subkey2, "Common Startup")
+
+    ## Some folders will have % in the app, next step is using re to change this.
+
+
+
+
+
+
+
 
 def main():
     regkeys = { "HKCU" : winreg.HKEY_CURRENT_USER, "HKLM" : winreg.HKEY_LOCAL_MACHINE } 
-    subkeys = { "HKCU" : }
+    hcku_subkeys = {"Run" : r"Software\Microsoft\Windows\CurrentVersion\Policies\Explorer\Run"}
+
                          
                   
 

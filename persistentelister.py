@@ -18,9 +18,11 @@ class PersistenceObject:
         self.loop     = 1
     
     def getValues(self):
-        key  = winreg.OpenKey(self.key, self.subkey, reserved = 0, access = winreg.KEY_READ)
-        if not key: 
-
+        try :
+            key  = winreg.OpenKey(self.key, self.subkey, reserved = 0, access = winreg.KEY_READ)
+            
+        except:
+            
             return 0                 # 0 if Fail 
         
         
@@ -45,7 +47,10 @@ class PersistenceObject:
 def getdirFiles(dir, recursive):             # Startup Folders check
     files = list()
     if not recursive: 
-        files = [os.listdir(dir)]
+        for file in os.listdir(dir):
+            if os.path.isfile(dir + "\\" file):
+                files += [dir + "\\" file]
+                
     
     if recursive:
         for (dirpath, dirnames, filenames) in os.walk(dir):
